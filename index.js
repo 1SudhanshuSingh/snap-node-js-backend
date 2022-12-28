@@ -6,6 +6,7 @@ const express = require("express"),
 // routers import
 const categoriesRouter = require("./routes/categories");
 const productsRouter = require("./routes/products");
+const homePage = require("./routes/homePage");
 
 // use the modules
 app.use(cors());
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 // use routers
 app.use("/categories", categoriesRouter);
 app.use("/products", productsRouter);
+app.use("/homePage", homePage)
 
 // make server object that contain port property and the value for our server.
 const server = {
