@@ -4,7 +4,7 @@ const express = require("express"),
   upload = require("../helpers/multer"),
   { v4: uuidv4 } = require("uuid");
 
-// get categories
+// get all categories
 router.get("/getCategories", function (req, res) {
   let sql = `SELECT * FROM categories`;
   db.query(sql, function (err, data, fields) {
@@ -13,6 +13,19 @@ router.get("/getCategories", function (req, res) {
       status: 200,
       data,
       message: "categories fetched successfully",
+    });
+  });
+});
+
+// get one category
+router.get("/getCategory/:id", function (req, res) {
+  let sql = `SELECT * FROM categories WHERE ID = '${req.params.id}'`;
+  db.query(sql, function (err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      data,
+      message: "selected category fetched successfully",
     });
   });
 });
@@ -38,10 +51,9 @@ router.post("/postCategories", function (req, res) {
 });
 
 // delete category
-router.delete("/deleteCategory", function(req, res) {
-  const sql = `DELETE FROM categories WHERE id = (?)`;
-  const values = [req.body.id];
-  db.query(sql, [values], function (err, data, fields) {
+router.delete("/deleteCategory/:id", function(req, res) {
+  const sql = `DELETE FROM categories WHERE ID = '${req.params.id}'`;
+  db.query(sql, function (err, data, fields) {
     if (err) throw err;
     res.json({
       status: 200,
