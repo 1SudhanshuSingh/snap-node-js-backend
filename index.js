@@ -1,6 +1,7 @@
 const express = require("express"),
   app = express(),
   cors = require("cors"),
+  path = require('path'),
   bodyParser = require("body-parser");
 
 // routers import
@@ -18,9 +19,10 @@ app.use(
 app.use(bodyParser.json());
 
 // use routers
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use("/categories", categoriesRouter);
 app.use("/products", productsRouter);
-app.use("/homePage", homePage)
+app.use("/homePage", homePage);
 
 // make server object that contain port property and the value for our server.
 const server = {

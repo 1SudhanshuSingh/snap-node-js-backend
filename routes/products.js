@@ -1,8 +1,7 @@
 const express = require("express"),
   router = express.Router(),
   { db } = require("../db"),
-  multer  = require('multer'),
-  upload = multer({ dest: './uploads/products/' }),
+  upload = require("../helpers/multer"),
   { v4: uuidv4 } = require("uuid");
 
 // get products

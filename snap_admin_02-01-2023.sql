@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Dec 29, 2022 at 09:10 AM
--- Server version: 5.7.34
--- PHP Version: 8.0.8
+-- Host: 127.0.0.1
+-- Generation Time: Jan 02, 2023 at 02:15 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -47,7 +47,7 @@ CREATE TABLE `categories` (
   `TYPE` varchar(50) NOT NULL,
   `NAME` varchar(100) NOT NULL,
   `PHOTO_URI` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `STATUS` tinyint(1) NOT NULL DEFAULT '1'
+  `STATUS` varchar(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -55,7 +55,7 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`ID`, `TYPE`, `NAME`, `PHOTO_URI`, `STATUS`) VALUES
-('0df52b5b-4edc-4209-8a1c-a661b4e1cef1', 'Others', 'Oterh 1', '[]', 1);
+('bb4a6462-c412-4ea0-9fff-303e1fe166da', '', 'Harappa', '[\"uploads\\\\1672665266413.jpeg\"]', '0');
 
 -- --------------------------------------------------------
 

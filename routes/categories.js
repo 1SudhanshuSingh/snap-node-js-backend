@@ -31,14 +31,15 @@ router.get("/getCategory/:id", function (req, res) {
 });
 
 // create new category
-router.post("/postCategories", function (req, res) {
+router.post("/postCategories", upload.array("photo_uri"), function (req, res) {
+  const fileName = req.files.map((file) => file.path);
   const uuid = uuidv4();
   const sql = `INSERT INTO categories(ID, TYPE, NAME, PHOTO_URI, STATUS) VALUES (?)`;
   const values = [
     uuid,
     req.body.type,
     req.body.name,
-    req.body.photo_uri,
+    JSON.stringify(fileName),
     req.body.status,
   ];
   db.query(sql, [values], function (err, data, fields) {
@@ -51,7 +52,7 @@ router.post("/postCategories", function (req, res) {
 });
 
 // delete category
-router.delete("/deleteCategory/:id", function(req, res) {
+router.delete("/deleteCategory/:id", function (req, res) {
   const sql = `DELETE FROM categories WHERE ID = '${req.params.id}'`;
   db.query(sql, function (err, data, fields) {
     if (err) throw err;
@@ -60,19 +61,24 @@ router.delete("/deleteCategory/:id", function(req, res) {
       message: "Category deleted successfully",
     });
   });
-})
+});
 
 // update category
-router.put("/putCategories", function (req, res) {
-  const { uuid, ...updatedData } = req.body;
+router.put("/putCategories", upload.array("photo_uri"), function (req, res) {
+  const photo_uri = JSON.stringify(req.files.map((file) => file.path));
+  const { id, type, name, status } = req.body;
   const sql = `UPDATE categories SET ? WHERE ID = ?`;
-  db.query(sql, [updatedData, uuid], function (err, data, fields) {
-    if (err) throw err;
-    res.json({
-      status: 200,
-      message: "Category updated successfully",
-    });
-  });
+  db.query(
+    sql,
+    [{ type, name, photo_uri, status }, id],
+    function (err, data, fields) {
+      if (err) throw err;
+      res.json({
+        status: 200,
+        message: "Category updated successfully",
+      });
+    }
+  );
 });
 
 module.exports = router;
