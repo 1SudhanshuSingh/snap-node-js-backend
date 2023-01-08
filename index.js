@@ -8,6 +8,7 @@ const express = require("express"),
 const categoriesRouter = require("./routes/categories");
 const productsRouter = require("./routes/products");
 const homePage = require("./routes/homePage");
+const theStart = require("./routes/theStart");
 
 // use the modules
 app.use(cors());
@@ -23,6 +24,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use("/categories", categoriesRouter);
 app.use("/products", productsRouter);
 app.use("/homePage", homePage);
+app.use("/theStart", theStart);
 
 // make server object that contain port property and the value for our server.
 const server = {
