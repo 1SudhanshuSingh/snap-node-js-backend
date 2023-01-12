@@ -82,3 +82,5 @@ router.put("/putCategories", upload.array("photo_uri"), function (req, res) {
 });
 
 module.exports = router;
+
+
